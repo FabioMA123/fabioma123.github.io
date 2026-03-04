@@ -1,195 +1,196 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZJH62X7KM4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZJH62X7KM4');
+  </script>
+  <style>
+    body { font-family: Arial; }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    h2 { text-align: center; }
+    .step { display: none; }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 15px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      background-color: #0d2b52;
+      color: white;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    button:hover { background-color: #15407a; }
+    .progress {
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: gray;
+    }
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZJH62X7KM4"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-ZJH62X7KM4');
-</script>
-
-<style>
-body { font-family: Arial; }
-.container {
-  max-width: 500px;
-  margin: auto;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-}
-h2 { text-align: center; }
-.step { display: none; }
-input, select {
-  width: 100%;
-  padding: 10px;
-  margin: 15px 0;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  background-color: #0d2b52;
-  color: white;
-  cursor: pointer;
-  margin-right: 10px;
-}
-button:hover { background-color: #15407a; }
-.progress {
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 14px;
-  color: gray;
-}
-.mensaje-exito {
-  display: none;
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 8px;
-  background-color: #e6f4ea;
-  color: #1e7e34;
-  text-align: center;
-  font-weight: bold;
-}
-</style>
+    /* Mensaje de éxito */
+    #successMessage {
+      display: none;
+      text-align: center;
+      padding: 30px 20px;
+    }
+    #successMessage .check-icon {
+      width: 70px;
+      height: 70px;
+      background-color: #e6f4ea;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 36px;
+    }
+    #successMessage h3 {
+      color: #1a7a3c;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    #successMessage p {
+      color: #555;
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+    #successMessage button {
+      background-color: #0d2b52;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="container">
+    <h2>Agenda tu Mantenimiento</h2>
+    <div class="progress" id="progressText">Paso 1 de 6</div>
 
-<div class="container">
-<h2>Agenda tu Mantenimiento</h2>
-<div class="progress" id="progressText">Paso 1 de 6</div>
+    <form id="form">
+      <div class="step">
+        <input type="text" id="nombre" placeholder="Nombre y Apellido" required>
+      </div>
+      <div class="step">
+        <input type="text" id="placa" placeholder="Placa" required>
+      </div>
+      <div class="step">
+        <select id="marca" required>
+          <option value="">Selecciona Marca</option>
+          <option>Renault</option>
+          <option>Toyota</option>
+          <option>Suzuki</option>
+          <option>Hyundai</option>
+          <option>Kia</option>
+        </select>
+      </div>
+      <div class="step">
+        <input type="number" id="kilometraje" placeholder="Kilometraje (ej: 75000)" required>
+      </div>
+      <div class="step">
+        <select id="ciudad" required>
+          <option value="">Selecciona Ciudad</option>
+          <option>La Paz</option>
+          <option>Cochabamba</option>
+          <option>Santa Cruz</option>
+          <option>Sucre</option>
+          <option>Tarija</option>
+        </select>
+      </div>
+      <div class="step">
+        <h3>Confirmar envío</h3>
+        <p>Haz clic para agendar tu mantenimiento.</p>
+      </div>
 
-<form id="form">
+      <button type="button" id="prev">Anterior</button>
+      <button type="button" id="next">Siguiente</button>
+    </form>
 
-<div class="step">
-<input type="text" id="nombre" placeholder="Nombre y Apellido" required>
-</div>
+    <!-- Mensaje de éxito (reemplaza el alert) -->
+    <div id="successMessage">
+      <div class="check-icon">✅</div>
+      <h3>¡Mantenimiento agendado!</h3>
+      <p>Tu solicitud fue enviada correctamente.<br>Pronto nos pondremos en contacto contigo.</p>
+      <button type="button" onclick="resetForm()">Agendar otro</button>
+    </div>
+  </div>
 
-<div class="step">
-<input type="text" id="placa" placeholder="Placa" required>
-</div>
+  <script>
+    let step = 0;
+    const steps = document.querySelectorAll(".step");
+    const progressText = document.getElementById("progressText");
 
-<div class="step">
-<select id="marca" required>
-<option value="">Selecciona Marca</option>
-<option>Renault</option>
-<option>Toyota</option>
-<option>Suzuki</option>
-<option>Hyundai</option>
-<option>Kia</option>
-</select>
-</div>
+    function showStep(n){
+      steps.forEach((el,i) => el.style.display = i===n ? "block" : "none");
+      progressText.innerText = "Paso " + (n+1) + " de 6";
+    }
 
-<div class="step">
-<input type="number" id="kilometraje" placeholder="Kilometraje (ej: 75000)" required>
-</div>
-
-<div class="step">
-<select id="ciudad" required>
-<option value="">Selecciona Ciudad</option>
-<option>La Paz</option>
-<option>Cochabamba</option>
-<option>Santa Cruz</option>
-<option>Sucre</option>
-<option>Tarija</option>
-</select>
-</div>
-
-<div class="step">
-<h3>Confirmar envío</h3>
-<p>Haz clic para agendar tu mantenimiento.</p>
-</div>
-
-<button type="button" id="prev">Anterior</button>
-<button type="button" id="next">Siguiente</button>
-
-</form>
-
-<div class="mensaje-exito" id="mensajeExito">
-✅ El mantenimiento fue agendado correctamente.
-</div>
-
-</div>
-
-<script>
-
-let step = 0;
-const steps = document.querySelectorAll(".step");
-const progressText = document.getElementById("progressText");
-const mensajeExito = document.getElementById("mensajeExito");
-
-function showStep(n){
-  steps.forEach((el,i)=> el.style.display = i===n ? "block":"none");
-  progressText.innerText = "Paso " + (n+1) + " de 6";
-}
-showStep(step);
-
-document.getElementById("next").onclick = function(){
-
-  if(step < steps.length-1){
-    step++;
     showStep(step);
 
-    gtag('event', 'paso_'+step+'_completado', {
-      'event_category': 'Formulario'
-    });
+    document.getElementById("next").onclick = function(){
+      if(step < steps.length-1){
+        step++;
+        showStep(step);
+        gtag('event', 'paso_'+step+'_completado', { 'event_category': 'Formulario' });
+      } else {
+        enviarDatos();
+      }
+    };
 
-  } else {
-    enviarDatos();
-  }
-};
+    document.getElementById("prev").onclick = function(){
+      if(step>0){ step--; showStep(step); }
+    };
 
-document.getElementById("prev").onclick = function(){
-  if(step>0){
-    step--;
-    showStep(step);
-  }
-};
+    function enviarDatos(){
+      const data = {
+        nombre: document.getElementById("nombre").value,
+        placa: document.getElementById("placa").value,
+        marca: document.getElementById("marca").value,
+        kilometraje: document.getElementById("kilometraje").value,
+        ciudad: document.getElementById("ciudad").value
+      };
 
-function enviarDatos(){
+      fetch("https://script.google.com/macros/s/AKfycbydErpbImy4vIuW7NqS12NCg9tsrW4u3ROoQS79vGyZBR6bmh2SGEhc0vvcdWY_HABo/exec", {
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(response => {
+        gtag('event', 'formulario_enviado', { 'event_category': 'Conversion' });
 
-  const data = {
-    nombre: document.getElementById("nombre").value,
-    placa: document.getElementById("placa").value,
-    marca: document.getElementById("marca").value,
-    kilometraje: document.getElementById("kilometraje").value,
-    ciudad: document.getElementById("ciudad").value
-  };
+        // Ocultar formulario y mostrar mensaje de éxito
+        document.getElementById("form").style.display = "none";
+        document.getElementById("progressText").style.display = "none";
+        document.getElementById("successMessage").style.display = "block";
+      })
+      .catch(error => {
+        alert("Error al enviar");
+      });
+    }
 
-  fetch("https://script.google.com/macros/s/AKfycbydErpbImy4vIuW7NqS12NCg9tsrW4u3ROoQS79vGyZBR6bmh2SGEhc0vvcdWY_HABo/exec", {
-    method: "POST",
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(response => {
-
-    gtag('event', 'formulario_enviado', {
-      'event_category': 'Conversion'
-    });
-
-    document.getElementById("form").reset();
-    mensajeExito.style.display = "block";
-
-    step = 0;
-    showStep(step);
-
-    setTimeout(() => {
-      mensajeExito.style.display = "none";
-    }, 4000);
-
-  })
-  .catch(error=>{
-    alert("Error al enviar");
-  });
-
-}
-
-</script>
+    function resetForm(){
+      document.getElementById("form").reset();
+      document.getElementById("form").style.display = "block";
+      document.getElementById("progressText").style.display = "block";
+      document.getElementById("successMessage").style.display = "none";
+      step = 0;
+      showStep(step);
+    }
+  </script>
 </body>
 </html>
